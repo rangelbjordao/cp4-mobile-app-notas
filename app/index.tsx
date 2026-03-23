@@ -36,37 +36,26 @@ const LoginScreen = () => {
 
   // Função para simular o envio do formulário
   const handleLogin = () => {
-    console.log("1. handleLogin chamado");
     if (!email || !senha) {
       Alert.alert("Atenção", "Preencha todos os campos!");
       return;
     }
-
-    console.log("2. Chamando Firebase...");
     signInWithEmailAndPassword(auth, email, senha)
       .then(async (userCredential) => {
+        // Signed in
         const user = userCredential.user;
-        console.log("3. Login OK:", user.uid);
+        //Atualiza o campo de último login no doc do usuario/{uid}
+        await registrarUltimoLogin(user.uid, user.email);
 
-        try {
-          await registrarUltimoLogin(user.uid, user.email);
-          console.log("3.1 registrarUltimoLogin OK");
-        } catch (e) {
-          console.log("ERRO no registrarUltimoLogin:", e);
-        }
-
-        try {
-          await AsyncStorage.setItem("@user", JSON.stringify(user));
-          console.log("3.2 AsyncStorage OK");
-        } catch (e) {
-          console.log("ERRO no AsyncStorage:", e);
-        }
-
-        console.log("4. Redirecionando...");
+        //Salvando o usuário no AsyncStorage
+        await AsyncStorage.setItem("@user", JSON.stringify(user));
+        //Redericionar para a tela home
         router.replace("/Home");
       })
       .catch((error) => {
-        console.log("ERRO:", error.code, error.message);
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
         Alert.alert(
           "ATENÇÃO",
           "Credenciais Inválidas, verifique e-mail e senha:",
