@@ -94,7 +94,7 @@ const LoginScreen = () => {
         <Text style={styles.textoBotao}>Login</Text>
       </TouchableOpacity>
 
-      <Link href="CadastrarScreen" style={styles.linkCadastrar}>
+      <Link href="/CadastrarScreen" style={styles.linkCadastrar}>
         Cadastrar
       </Link>
     </View>
