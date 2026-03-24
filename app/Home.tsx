@@ -41,6 +41,7 @@ const Home = () => {
 
   const { novoCadastro } = useLocalSearchParams();
 
+  // Mensagem ao criar nova conta
   useEffect(() => {
     if (novoCadastro === "true") {
       Alert.alert("Bem-vindo!", "Sua conta foi criada com sucesso!");
@@ -54,12 +55,13 @@ const Home = () => {
         return;
       }
 
-      const q = query(
+      // Ordena as notas por data de criação(mais recente ficará no topo)
+      const notasQuery = query(
         collection(db, "notas"),
         where("uid", "==", user.uid),
         orderBy("criadoEm", "desc"),
       );
-      const unsubscribeNotas = onSnapshot(q, (snapshot) => {
+      const unsubscribeNotas = onSnapshot(notasQuery, (snapshot) => {
         const lista: Nota[] = snapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
@@ -157,7 +159,11 @@ const Home = () => {
         />
       )}
 
-      <TouchableOpacity style={styles.botaoCriar} onPress={abrirCriar}>
+      <TouchableOpacity
+        // Botao para adicionar nova nota
+        style={styles.botaoCriar}
+        onPress={abrirCriar}
+      >
         <Text style={styles.botaoCriarTexto}>+</Text>
       </TouchableOpacity>
 
