@@ -1,5 +1,15 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { router, useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { onAuthStateChanged } from "firebase/auth";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  orderBy,
+  query,
+  where,
+} from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -12,17 +22,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { auth, db } from "../services/firebaseConfig";
-import {
-  collection,
-  deleteDoc,
-  doc,
-  onSnapshot,
-  orderBy,
-  query,
-  where,
-} from "firebase/firestore";
 import NotaModal from "./NotaModal";
-import { onAuthStateChanged } from "firebase/auth";
 
 type Nota = {
   id: string;
@@ -38,6 +38,14 @@ const Home = () => {
   const [notaSelecionada, setNotaSelecionada] = useState<Nota | null>(null);
 
   const router = useRouter();
+
+  const { novoCadastro } = useLocalSearchParams();
+
+  useEffect(() => {
+    if (novoCadastro === "true") {
+      Alert.alert("Bem-vindo!", "Sua conta foi criada com sucesso!");
+    }
+  }, []);
 
   useEffect(() => {
     const unsubscribeAuth = onAuthStateChanged(auth, (user) => {

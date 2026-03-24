@@ -1,16 +1,16 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Link, useRouter } from "expo-router";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import {
-  View,
+  Alert,
+  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
-  Alert,
+  View,
 } from "react-native";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../services/firebaseConfig";
-import { Link, useRouter } from "expo-router";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { criarPerfilUsuario } from "../services/userDataService";
 
 export default function CadastroScreen() {
@@ -40,12 +40,25 @@ export default function CadastroScreen() {
 
         //Salvando o usuário no AsyncStorage
         await AsyncStorage.setItem("@user", JSON.stringify(user));
-        router.replace("/Home");
+        router.replace("/Home?novoCadastro=true");
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode + " " + errorMessage);
+
+        if (errorCode === "auth/email-already-in-use") {
+          Alert.alert("Atenção", "Este e-mail já está em uso.");
+        } else if (errorCode === "auth/weak-password") {
+          Alert.alert("Atenção", "A senha deve ter pelo menos 6 caracteres.");
+        } else if (errorCode === "auth/invalid-email") {
+          Alert.alert("Atenção", "E-mail inválido.");
+        } else {
+          Alert.alert(
+            "Erro",
+            "Não foi possível criar a conta. Tente novamente.",
+          );
+        }
       });
   };
 
