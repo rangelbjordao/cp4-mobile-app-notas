@@ -59,4 +59,4 @@ npx expo start
 
 ## Vídeo de Demonstração
 
-[Clique aqui para assistir](https://www.youtube.com/watch?v=OD7Rpi9LnII)
+[Clique aqui para assistir](https://www.youtube.com/watch?v=zwx8dYWfXUI)
