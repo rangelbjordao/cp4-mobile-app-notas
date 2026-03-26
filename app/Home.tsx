@@ -23,6 +23,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { auth, db } from "../services/firebaseConfig";
 import NotaModal from "./NotaModal";
+import { COLORS } from "../constants/colors";
 
 type Nota = {
   id: string;
@@ -140,7 +141,7 @@ const Home = () => {
       {loading ? (
         <ActivityIndicator
           size="large"
-          color="#0a0a0a"
+          color={COLORS.primary}
           style={{ marginTop: 40 }}
         />
       ) : notas.length === 0 ? (
@@ -181,7 +182,7 @@ export default Home;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f1f1f1",
+    backgroundColor: COLORS.background,
     padding: 20,
   },
   header: {
@@ -191,10 +192,9 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   titulo: {
-    textAlign: "center",
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#0a0a0a",
+    fontSize: 24,
+    fontWeight: "700",
+    color: COLORS.texto,
   },
   botao: {
     backgroundColor: "#0a0a0a",
@@ -203,37 +203,36 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   logout: {
-    fontSize: 16,
-    color: "#0a0a0a",
-    fontWeight: "bold",
-    borderWidth: 1,
-    borderColor: "#000",
-    paddingVertical: 6,
-    paddingHorizontal: 14,
-    borderRadius: 8,
+    fontSize: 15,
+    color: COLORS.primary,
+    fontWeight: "600",
   },
   card: {
-    backgroundColor: "#fafafa",
-    borderRadius: 10,
+    backgroundColor: COLORS.card,
+    borderRadius: 16,
     padding: 16,
     marginBottom: 12,
-    borderWidth: 1,
-    borderColor: "#000000",
+    shadowColor: "#000",
+    shadowOpacity: 0.05,
+    shadowRadius: 10,
+    elevation: 3,
     flexDirection: "row",
     alignItems: "center",
+    borderWidth: 1,
+    borderColor: COLORS.border,
   },
   cardTextos: {
     flex: 1,
   },
   cardTitulo: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#0a0a0a",
+    fontSize: 16,
+    fontWeight: "600",
+    color: COLORS.texto,
     marginBottom: 4,
   },
   cardConteudo: {
-    fontSize: 16,
-    color: "#0f0f0f",
+    fontSize: 14,
+    color: COLORS.subtitulo,
   },
   botaoDeletar: {
     padding: 8,
@@ -241,24 +240,27 @@ const styles = StyleSheet.create({
   },
   textoDeletar: {
     fontSize: 18,
-    color: "#999",
+    color: "#EF4444",
   },
   botaoCriar: {
     position: "absolute",
     bottom: 32,
     right: 24,
-    backgroundColor: "#0a0a0a",
-    width: 56,
-    height: 56,
-    borderRadius: 28,
+    backgroundColor: COLORS.primary,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
     alignItems: "center",
     justifyContent: "center",
-    elevation: 4,
+    shadowColor: COLORS.primary,
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
+    elevation: 6,
   },
   botaoCriarTexto: {
-    color: "#fafafa",
-    fontSize: 30,
-    lineHeight: 34,
+    color: "#fff",
+    fontSize: 28,
+    fontWeight: "600",
   },
   vazio: {
     flex: 1,
@@ -267,12 +269,12 @@ const styles = StyleSheet.create({
   },
   vazioTexto: {
     fontSize: 18,
-    color: "#0a0a0a",
-    fontWeight: "bold",
+    color: COLORS.texto,
+    fontWeight: "600",
   },
   vazioSubtitulo: {
     fontSize: 14,
-    color: "#888",
+    color: COLORS.subtitulo,
     marginTop: 6,
   },
 });

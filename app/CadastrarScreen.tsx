@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { auth } from "../services/firebaseConfig";
 import { criarPerfilUsuario } from "../services/userDataService";
+import { COLORS } from "../constants/colors";
 
 export default function CadastroScreen() {
   // Estados para armazenar os valores digitados
@@ -64,94 +65,106 @@ export default function CadastroScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titulo}>Criar Conta</Text>
+      <View style={styles.card}>
+        <Text style={styles.titulo}>Criar Conta</Text>
+        <Text style={styles.subtitulo}>
+          Preencha os dados para se cadastrar
+        </Text>
 
-      {/* Campo Nome */}
-      <TextInput
-        style={styles.input}
-        placeholder="Nome completo"
-        placeholderTextColor="#aaa"
-        value={nome}
-        onChangeText={setNome}
-      />
+        <TextInput
+          style={styles.input}
+          placeholder="Nome completo"
+          placeholderTextColor={COLORS.placeholder}
+          value={nome}
+          onChangeText={setNome}
+        />
 
-      {/* Campo Email */}
-      <TextInput
-        style={styles.input}
-        placeholder="E-mail"
-        placeholderTextColor="#aaa"
-        keyboardType="email-address"
-        autoCapitalize="none"
-        value={email}
-        onChangeText={setEmail}
-      />
+        <TextInput
+          style={styles.input}
+          placeholder="E-mail"
+          placeholderTextColor={COLORS.placeholder}
+          keyboardType="email-address"
+          autoCapitalize="none"
+          value={email}
+          onChangeText={setEmail}
+        />
 
-      {/* Campo Senha */}
-      <TextInput
-        style={styles.input}
-        placeholder="Senha"
-        placeholderTextColor="#aaa"
-        secureTextEntry
-        value={senha}
-        onChangeText={setSenha}
-      />
+        <TextInput
+          style={styles.input}
+          placeholder="Senha"
+          placeholderTextColor={COLORS.placeholder}
+          secureTextEntry
+          value={senha}
+          onChangeText={setSenha}
+        />
 
-      {/* Botão */}
-      <TouchableOpacity style={styles.botao} onPress={handleCadastro}>
-        <Text style={styles.textoBotao}>Cadastrar</Text>
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.botao} onPress={handleCadastro}>
+          <Text style={styles.textoBotao}>Cadastrar</Text>
+        </TouchableOpacity>
 
-      <Link href="/" style={styles.linkLogin}>
-        Login
-      </Link>
+        <Link href="/" style={styles.linkLogin}>
+          Já tem conta? Entrar
+        </Link>
+      </View>
     </View>
   );
 }
 
-// Estilização
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fafafa",
+    backgroundColor: COLORS.background,
     justifyContent: "center",
     padding: 20,
+  },
+  card: {
+    backgroundColor: COLORS.card,
+    padding: 25,
+    borderRadius: 20,
+    shadowColor: "#000",
+    shadowOpacity: 0.08,
+    shadowRadius: 15,
+    elevation: 6,
   },
   titulo: {
     fontSize: 28,
     fontWeight: "bold",
-    color: "#0a0a0a",
-    marginBottom: 30,
+    color: COLORS.texto,
     textAlign: "center",
   },
+  subtitulo: {
+    fontSize: 16,
+    color: COLORS.subtitulo,
+    textAlign: "center",
+    marginBottom: 25,
+    marginTop: 6,
+  },
   input: {
-    backgroundColor: "#fafafa",
-    color: "#0a0a0a",
-    borderRadius: 10,
+    backgroundColor: "#F9FAFB",
+    borderRadius: 12,
     padding: 15,
     marginBottom: 15,
     fontSize: 16,
     borderWidth: 1,
-    borderColor: "#333",
+    borderColor: COLORS.border,
   },
   botao: {
-    backgroundColor: "#0a0a0a",
+    backgroundColor: COLORS.primary,
     padding: 15,
-    borderRadius: 10,
+    borderRadius: 12,
     alignItems: "center",
+    marginTop: 10,
   },
   textoBotao: {
-    color: "#fafafa",
-    fontSize: 18,
-    fontWeight: "bold",
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "600",
   },
   linkLogin: {
-    backgroundColor: "#0a0a0a",
-    padding: 15,
-    color: "#fafafa",
+    marginTop: 18,
     textAlign: "center",
-    fontSize: 18,
-    borderRadius: 10,
-    fontWeight: "bold",
-    marginTop: 10,
+    color: COLORS.primary,
+    fontSize: 15,
+    fontWeight: "400",
   },
 });

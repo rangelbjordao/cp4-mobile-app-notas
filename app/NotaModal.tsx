@@ -19,6 +19,7 @@ import {
   View,
 } from "react-native";
 import { auth, db } from "../services/firebaseConfig";
+import { COLORS } from "../constants/colors";
 
 type Nota = {
   id: string;
@@ -129,7 +130,7 @@ const NotaModal = ({ visivel, onFechar, notaExistente }: Props) => {
             disabled={salvando}
           >
             {salvando ? (
-              <ActivityIndicator color="#fafafa" />
+              <ActivityIndicator color="#fff" />
             ) : (
               <Text style={styles.textoBotao}>
                 {editando ? "Salvar alterações" : "Criar nota"}
@@ -147,17 +148,19 @@ export default NotaModal;
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: "rgba(0, 0, 0, 0.2)",
+    backgroundColor: "rgba(0, 0, 0, 0.1)",
     justifyContent: "flex-end",
   },
   container: {
-    backgroundColor: "#fafafa",
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    borderColor: "#000",
-    borderWidth: 1,
+    backgroundColor: COLORS.card,
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
     padding: 24,
     paddingBottom: 40,
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowRadius: 20,
+    elevation: 10,
   },
   header: {
     flexDirection: "row",
@@ -167,36 +170,36 @@ const styles = StyleSheet.create({
   },
   titulo: {
     fontSize: 20,
-    fontWeight: "bold",
-    color: "#0a0a0a",
+    fontWeight: "700",
+    color: COLORS.texto,
   },
   fechar: {
     fontSize: 20,
-    color: "#888",
+    color: COLORS.subtitulo,
   },
   input: {
-    backgroundColor: "#fafafa",
-    color: "#0a0a0a",
-    borderRadius: 10,
+    backgroundColor: "#F9FAFB",
+    borderRadius: 12,
     padding: 15,
     marginBottom: 15,
     fontSize: 16,
     borderWidth: 1,
-    borderColor: "#000",
+    borderColor: COLORS.border,
   },
   inputConteudo: {
     height: 140,
+    paddingTop: 15,
   },
   botao: {
-    backgroundColor: "#0a0a0a",
+    backgroundColor: COLORS.primary,
     padding: 15,
-    borderRadius: 10,
+    borderRadius: 12,
     alignItems: "center",
-    marginTop: 4,
+    marginTop: 8,
   },
   textoBotao: {
-    color: "#fafafa",
-    fontSize: 18,
-    fontWeight: "bold",
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "600",
   },
 });
